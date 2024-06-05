@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  balena-yahboom-rpi4b-hat:
+    build: .
+    network_mode: host
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+      

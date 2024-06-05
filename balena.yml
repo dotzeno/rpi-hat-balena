@@ -1,0 +1,21 @@
+name: balena-yahboom-rpi4b-hat
+type: sw.application
+joinable: false
+description: >-
+  This is based on balena python hello world
+post-provisioning: >-
+  ## Usage instructions
+
+assets:
+#  repository:
+#    type: blob.asset
+#    data:
+#      url: 'https://github.com/balena-io-examples/balena-python-hello-world/'
+#  logo:
+#    type: blob.asset
+#    data:
+#      url: 'https://raw.githubusercontent.com/balena-io-examples/balena-python-hello-world/master/logo.png'
+data:
+  supportedDeviceTypes:
+    - raspberrypi4-64
+version: 0.0.1
