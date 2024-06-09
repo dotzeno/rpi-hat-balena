@@ -49,8 +49,7 @@ x = 0
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 path = os.path.dirname(__file__) + '/'
-fontsize = 8
-font = ImageFont.truetype(path + 'Minecraftia.ttf', fontsize)
+font = ImageFont.truetype(path + 'Minecraftia.ttf', 8)
 
 def setFanSpeed(speed):
     bus.write_byte_data(hat_addr, fan_reg, speed&0xff)
@@ -78,10 +77,9 @@ def getCPULoadRate():
     total = int(total_2-total_1)
     idle = int(idle_2-idle_1)
     usage = int(total-idle)
-    #print("idle:"+str(idle)+"  total:"+str(total))
-    usageRate =int(float(usage * 100/ total))
-    #print("usageRate:%d"%usageRate)
-    return "CPU:"+str(usageRate)+"%"
+    # print("idle:"+str(idle)+"  total:"+str(total))
+    usageRate = int(float(usage * 100  / total))
+    return "CPU: "+str(usageRate)+"%"
 
 def getNetwork():
     cmd = "ip addr show | awk '/inet.*brd/{print $NF}' | head -1"
@@ -100,29 +98,29 @@ def setOLEDshow():
     cmd = os.popen('cat /sys/class/thermal/thermal_zone*/temp').readline().strip()
     global g_temp
     if len(cmd) == 5: 
-        CPU_TEMP = cmd[:2]+"."+cmd[2:3]
+        CPU_TEMP=cmd[:2]+"."+cmd[2:3]
         g_temp = int(cmd[:2])
     else:
-        CPU_TEMP = cmd[:3]+"."+cmd[3:4]
+        CPU_TEMP=cmd[:3]+"."+cmd[3:4]
         g_temp = int(cmd[:2])
-    CPU_TEMP = CPU_TEMP+"C"
-    cmd = "free -m | awk 'NR==2{printf \"RAM:%.2f/%.2fGB %.0f%%\", $3/1024,$2/1024,$3*100/$2 }'"
+    CPU_TEMP = "temp:"+CPU_TEMP+"C"
+    cmd = "free -m | awk 'NR==2{printf \"RAM: %.1f/ %.1fGB  %.0f%%\", $3/1024,$2/1024,$3*100/$2 }'"
     MemUsage = subprocess.check_output(cmd, shell=True).decode("utf-8")
-    cmd = "df -h | awk '$NF==\"/\"{printf \"Disk:%.1f/%.1fGB %s\", $3,$2,$5}'"
+    cmd = "df -h | awk '$NF==\"/\"{printf \"Disk:%.1f/%.1fGB  %s\", $3,$2,$5}'"
     Disk = subprocess.check_output(cmd, shell=True).decode("utf-8")
     Network = getNetwork()
 
     # Write five lines of text.
     draw.text((x, top), str(CPU), font=font, fill=255)
-    draw.text((x+56, top), str(CPU_TEMP), font=font, fill=255)
-    draw.text((x, top+fontsize), str(MemUsage),  font=font, fill=255)
-    draw.text((x, top+(fontsize*2)), str(Disk),  font=font, fill=255)
-    draw.text((x, top+(fontsize*3)), str(Network),  font=font, fill=255)
+    draw.text((x+75, top), str(CPU_TEMP), font=font, fill=255)
+    draw.text((x, top+8), str(MemUsage),  font=font, fill=255)
+    draw.text((x, top+16), str(Disk),  font=font, fill=255)
+    draw.text((x+30, top+24), str(Network),  font=font, fill=255)
 
     # Display image.
     disp.image(image)
     disp.show()
-    time.sleep(0.1)
+    time.sleep(1)
 
 def setRGB(num, r, g, b):
     bus.write_byte_data(hat_addr, 0x00, num&0xff)
@@ -156,4 +154,4 @@ while True:
     else:
         setFanSpeed(0x01)
     
-    time.sleep(.5)
+    time.sleep(1)
