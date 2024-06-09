@@ -1,4 +1,4 @@
-name: balena-yahboom-rpi4b-hat
+name: rpi-hat-balena
 type: sw.application
 joinable: false
 description: >-
