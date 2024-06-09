@@ -1,4 +1,4 @@
-# yahboom-rpi4b-hat-balena
+# rpi-hat-balena
 yahboom-raspi-cooling-fan for balenaOS
 
 ## Setup and configuration
