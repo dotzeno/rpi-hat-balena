@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-  balena-yahboom-rpi4b-hat:
+  rpi-hat-balena:
     build: .
     network_mode: host
     devices:
