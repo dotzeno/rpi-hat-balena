@@ -5,6 +5,7 @@ import subprocess
 import busio
 import smbus
 bus = smbus.SMBus(1)
+time.sleep(1)
 
 from PIL import Image, ImageDraw, ImageFont
 from board import SCL, SDA
