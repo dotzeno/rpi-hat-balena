@@ -1,8 +1,19 @@
 version: "2"
 
 services:
-  rpi-hat-balena:
-    build: .
+  rpi-hat-rgb:
+    build: ./core/rgb
+    restart: on-failure
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+  rpi-hat-fan:
+    build: ./core/fan
+    restart: always
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+  rpi-hat-oled:
+    build: ./core/oled
+    restart: no
     network_mode: host
     devices:
       - "/dev/i2c-1:/dev/i2c-1"
